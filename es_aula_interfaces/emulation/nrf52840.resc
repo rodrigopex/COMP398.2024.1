@@ -1,0 +1,17 @@
+:name: NRF52840
+:description: This script runs Zephyr Shell demo on NRF52840.
+
+using sysbus
+
+mach create
+machine LoadPlatformDescription @emulation/nrf52840.repl
+
+$bin?=@build/zephyr/zephyr.elf
+
+showAnalyzer uart0
+
+macro reset
+"""
+    sysbus LoadELF $bin
+"""
+runMacro $reset

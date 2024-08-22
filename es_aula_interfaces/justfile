@@ -1,0 +1,13 @@
+mod sltb010a_2
+
+generate_repl:
+    ~/.local/zephyr-sdk-0.16.8/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc -H -E -P -x assembler-with-cpp -I include/ -I dts/ -I dts/arm/ -I dts/common boards/nordic/nrf52840dk/nrf52840dk_nrf52840.dts 1>flat.dts 2>includes.txt
+
+build:
+    west build -b nrf52840dk/nrf52840 -p 
+
+run: build
+    mono /Applications/Renode.app/Contents/MacOS/bin/Renode.exe emulation/nrf52840.resc
+
+f:
+    west flash
